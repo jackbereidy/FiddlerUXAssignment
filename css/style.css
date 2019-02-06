@@ -1,54 +1,107 @@
-body {
-    background-color: rgb(244, 248, 249);
-    font-family: 'Lato', Arial, Helvetica, sans-serif;
-}
-
-
 /* blue background */
 /* rgb(14, 100, 210) */
-
 /* grey background */
-/* rgb(244, 248, 249) */
-
+/* rgb(240, 244, 245) */
 /*grey blue text*/
 /* rgb(72, 84, 101) */
-
 /*dark grey blue text*/
 /*rgb(50, 60, 71)*/
-
 /*white color*/
 /* rgb(255, 255, 255) */
 
-.outer-container {
-	margin-top: 20px;
+body {
+    background-color: rgb(240, 244, 245);
+    font-family: 'Lato', Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 
-.card-body .container {
-	justify-content: flex-end;
+/* Container */
+.container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
+/* Card */
 .card {
-	/*max-width: 1000px;*/
+	flex-grow: 4;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 1000px;
+	background-color: rgb(255, 255, 255);
+	padding: 20px;
+	margin-top: 40px;
+	border-radius: 6px;
 }
+@media (min-width:650px) {
+	.card { 
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+}
+@media (max-width:650px) {
+	.card { border-radius: 0px; }
+}
+.card-item {
 
-.card .card-title {
+}
+.card-title {
 	font-weight: 700;
+	margin-top: 0;
+	color: rgb(50, 60, 71);
+	font-size: 25px;
+	line-height: 50px;
+}
+.card-subtitle {
+	font-weight: 400;
+	font-size: 20px;
+	margin-left: 9px;
+	color: rgb(72, 84, 101);
 }
 
-.form-container {
+/* X, Y, Limit Bar*/
+.options {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
 	padding-top: 15px;
+	padding-bottom: 15px;
+	align-items: center;
 }
-
-.form-container .form-control {
-	display: inline-block;
-	width: 50%;
-}
-
-.form-container span {
+.options .option-item {
+	padding-left: 15px;
 	padding-right: 15px;
+}
+.options .option-item .option-label {
 	font-weight: 700;
+	color: rgb(50, 60, 71);
+	padding-right: 15px;
 }
 
-.form-container select {
-	float: right;
+/* button */
+.button {
+  background-color: rgb(14, 100, 210); /* Green */
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  font-weight: 400;
+  border-width: 1px;
+  line-height: 25px;
+  min-width: 45px;
+  transition: background-color 0.2s ease;
+}
+.button:hover {
+	background-color: rgb(7, 74, 161);
+}
+
+@media (max-width:650px) {
+	.options { justify-content: flex-start; }
+	.option-item { margin-top: 15px; }
 }
