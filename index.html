@@ -1,21 +1,66 @@
 <!doctype html>
-
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Fiddler UX Assignment</title>
-	<!-- D3 v5 -->
-	<script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
-	<!-- Lato via Google Fonts -->
+	<!-- viewport meta tag required for proper responsive behavior -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- D3.js (v4) -->
+	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+	<!-- Lato font via Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<!-- Local files -->
 	<link rel='stylesheet' type='text/css' href='css/style.css'>
+	<link rel="icon" href="images/favicon-smile-o.ico">
+
+	<title>Fiddler UX Assignment</title>
 </head>
 
 <body>
-	<h1> Hello, Jocelyn</h1>
-</body>
+	
+	<div class="container outer-container">
+		<div class="row">
+			<div class="col">
 
+				<div class="card">
+					<div id="card-body-1" class="card-body">
+						<h4 class="card-title">Analytics</h4>
+						<div class="container form-container">
+							<div class="row">
+								<div class="col-sm">
+									<span>Column X</span>
+									<select class="form-control">
+										<option>Default select</option>
+									</select>
+								</div>
+								<div class="col-sm">
+									<span>Column Y</span>
+									<select class="form-control">
+										<option>Default select</option>
+									</select>
+								</div>
+								<div class="col-sm">
+									<span>Limit</span>
+									<select class="form-control">
+										<option>Default select</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- scatter plot -->
+	<script src="js/scatterplot.js"></script>
+	<!-- Bootstrap and dependencies (jQuery and Popper.js) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
 </html>
 
-<!-- scatter plot -->
-<script src="js/scatterplot.js"></script>

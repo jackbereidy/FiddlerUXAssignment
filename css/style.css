@@ -3,6 +3,7 @@ body {
     font-family: 'Lato', Arial, Helvetica, sans-serif;
 }
 
+
 /* blue background */
 /* rgb(14, 100, 210) */
 
@@ -17,3 +18,37 @@ body {
 
 /*white color*/
 /* rgb(255, 255, 255) */
+
+.outer-container {
+	margin-top: 20px;
+}
+
+.card-body .container {
+	justify-content: flex-end;
+}
+
+.card {
+	/*max-width: 1000px;*/
+}
+
+.card .card-title {
+	font-weight: 700;
+}
+
+.form-container {
+	padding-top: 15px;
+}
+
+.form-container .form-control {
+	display: inline-block;
+	width: 50%;
+}
+
+.form-container span {
+	padding-right: 15px;
+	font-weight: 700;
+}
+
+.form-container select {
+	float: right;
+}
