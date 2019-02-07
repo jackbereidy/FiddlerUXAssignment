@@ -12,11 +12,10 @@ let svg = cardBody.append('svg')
 
 // plot data values (TO DO: remove plot var entirely)
 var plot = {
-	'minX': 6,
-	'maxX': 10,
+	'minX': 0,
+	'maxX': 100,
 	'minY': 0,
-	'maxY': 10000,
-	'margin': 100
+	'maxY': 100
 }
 
 function getXScale() {
@@ -55,7 +54,8 @@ function parseData(d) {
 		id: +d.id,
 		loanAmnt: +d.loan_amnt,
 		intRate: +d.int_rate,
-		dti: +d.dti
+		dti: +d.dti,
+		totalACC: +d.total_acc
 	}
 }
 function loadData(error, d) {
@@ -81,9 +81,9 @@ function initializeOptions() {
 			.attr('id', 'y-opt-' + opt);
 	}
 	// arbitrary default columns 1 and 2
-	d3.select('#x-opt-'+options[2])
+	d3.select('#x-opt-'+options[3])
 		.attr('selected', 'selected');
-	d3.select('#y-opt-'+options[1])
+	d3.select('#y-opt-'+options[4])
 		.attr('selected', 'selected');
 }
 
@@ -99,22 +99,27 @@ function drawData() {
 	drawPoints();
 }
 function drawPoints() {
-	let xScaleObj = getXScale();
-	let yScaleObj = getYScale();
 
-	let updatedPoints = pointsGroup.selectAll('circle.point-thing').data(dataBlob, d => d.id);
+	let updatedPoints = pointsGroup.selectAll('circle.point-thing').data(dataBlob);
 
 	console.log(selectColX.property('value') + ' ' + selectColY.property('value'));
 
+
+let xScaleObj = getXScale();
+	let yScaleObj = getYScale();
 	updatedPoints.enter()
 		.append('circle')
 		.attr('class', 'point-thing')
         .attr('r', 3.0)
+        .style('fill', 'rgba(14, 100, 210, 0.7)')
         .attr('cx', function (d) { return xScaleObj(d[selectColX.property('value')]); })
-        .attr('cy', function (d) { return yScaleObj(d[selectColY.property('value')]); })
-        .style('fill', 'rgba(14, 100, 210, 0.7)');
+                 .attr('cy', function (d) { return yScaleObj(d[selectColY.property('value')]); });;
 
     updatedPoints.exit().remove();
+
+    
+    updatedPoints.attr('cx', function (d) { return xScaleObj(d[selectColX.property('value')]); })
+                 .attr('cy', function (d) { return yScaleObj(d[selectColY.property('value')]); });
 }
 
 // events (TO DO maybe just bind events to drawData ) 
