@@ -7,6 +7,7 @@ function getSvgTargetHeight() {
 }
 function getSvgTargetWidth()  { return svg.node().getBoundingClientRect().width; }
 function getSvgMarginOffset() { return 40; }
+
 // create svg
 let cardBody = d3.select('#svg-container');
 let svg = cardBody.append('svg')
@@ -35,42 +36,59 @@ function getYScale() {
 	    .domain([(min - spacer > 1) ? min - spacer : 0, max + spacer])
 	    .range([getSvgTargetHeight() - 50, 0]);
 }
-
+// container for all other elements in svg
 let plotGroup = svg.append('g')
 	.attr('id', 'plot-group')
 	.attr('transform', `translate(${getSvgMarginOffset()},${-1*getSvgMarginOffset()})`);
+// x and y axes from d3
 let xAxis = plotGroup.append('g')
     .attr('id', 'x-axis')
-    .attr('class', 'axis');
+    .attr('class', 'axis')
+    .attr('class', 'noselect');
 let yAxis = plotGroup.append('g')
     .attr('id', 'y-axis')
     .attr('class', 'axis')
+    .attr('class', 'noselect')
     .attr('transform', `translate(${0},${-1*getSvgMarginOffset() + 90})`);
-
+// label updates with changes to x and y axes
 let plotLabel = d3.select('#plotLabel');
-
+// x and y axis labels
 let xLabelGroup = plotGroup.append('g');
 let xLabel = xLabelGroup.append('text');
-
 let yLabelGroup = plotGroup.append('g');
 let yLabel = yLabelGroup.append('text').attr('transform', 'rotate(-90)');
-
+// label updates with changes to limit slider
+let limitLabel = d3.select('#limitLabel');
+// limit slider from 0 to number of rows (ser on load)
+let domainSlider = d3.select('#limit-slider')
+    .attr('min', 0)
+    .on('input', function () {
+        let currentLimit = +this.value;
+        limitLabel.text(currentLimit);
+        // filter out rows with index greater than current limit, this is a naive approach
+        let filterDataBlob = dataBlobFixed.filter(function(d, i) {
+        	return i < currentLimit;
+        });
+        dataBlob = filterDataBlob;
+        redraw();
+    });
+// group of all points in svg
 let pointsGroup = plotGroup.append('g')
 	.attr('id', 'points-group')
 	.attr('transform', `translate(${0},${-1*getSvgMarginOffset() + 90})`);
-
+// datablob changes with filter, datablobfixed is set once on load
 let dataBlob;
+let dataBlobFixed;
+// drop-down select x and y axis
+let selectColX = d3.select('#select-col-x').on('change', function() { redraw(dataBlob); });
+let selectColY = d3.select('#select-col-y').on('change', function() { redraw(dataBlob); });
+// resize window
+window.addEventListener("resize", function() { redraw(dataBlob); });
 
-let selectColX = d3.select('#select-col-x').on('change', updateColumnX);
-let selectColY = d3.select('#select-col-y').on('change', updateColumnY);;
-
-window.addEventListener("resize", resize);
-
-let minMaxDict = [];
 // parse csv to dictionary and update min max.
 // we only store keys with numeric values because 
 // there isn't a intuitive way to plot non-numeric
-//  values in a scatterplot
+// values in a scatterplot
 function parseData(d) {
 	let dict = [];
 	for (var key in d) {
@@ -81,6 +99,7 @@ function parseData(d) {
 	return dict;
 }
 // check key value pair for min and max - necessary for plot axis scaling
+let minMaxDict = [];
 function updateMinMaxDict(key, value) {
 	if (key in minMaxDict) {
 		if (minMaxDict[key]["min"] > value) minMaxDict[key]["min"] = value;
@@ -95,6 +114,10 @@ function updateMinMaxDict(key, value) {
 function loadData(error, d) {
 	if (error) throw error;
 	dataBlob = d;
+	dataBlobFixed = d;
+	domainSlider.attr('max', dataBlobFixed.length)
+	    .attr('value', dataBlobFixed.length);
+	limitLabel.text(dataBlobFixed.length);
 	initializeOptions();
     redraw();
 }
@@ -122,7 +145,7 @@ function initializeOptions() {
 	d3.select('#y-opt-total_acc')
 		.attr('selected', 'selected');
 }
-
+// draw data with current x and y axes and filter
 function redraw() {
 	// update svg height (TO DO - do conditionally)
 	svg.attr('height', getSvgTargetHeight() + 'px');
@@ -133,8 +156,6 @@ function redraw() {
 	yAxis.call(d3.axisLeft(getYScale()));
 	// update plot label
 	plotLabel.text(selectColX.property('value') + ' vs ' + selectColY.property('value'));
-
-
 
 
 	// set text and location of x label
@@ -149,9 +170,10 @@ function redraw() {
 	    .attr('y', yLabelYPosition);
 	yLabel.text(selectColY.property('value'));
 
-	drawPoints();
+	drawPoints(dataBlob);
 }
-function drawPoints() {
+// draw points in plot
+function drawPoints(dataBlob) {
 	let updatedPoints = pointsGroup.selectAll('circle.point-thing').data(dataBlob);
 	// convenience and speed
 	let xScaleObj = getXScale();
@@ -161,28 +183,12 @@ function drawPoints() {
 		.append('circle')
 		.attr('class', 'point-thing')
         .attr('r', 3.0)
-        .style('fill', 'rgba(14, 100, 210, 0.7)')
+        .style('fill', 'rgba(14, 100, 210, 0.5)')
         .attr('cx', function (d) { return xScaleObj(d[selectColX.property('value')]); })
 		.attr('cy', function (d) { return yScaleObj(d[selectColY.property('value')]); });
 	// delete
     updatedPoints.exit().remove();
-    // updated existing elements
     updatedPoints.attr('cx', function (d) { return xScaleObj(d[selectColX.property('value')]); })
                  .attr('cy', function (d) { return yScaleObj(d[selectColY.property('value')]); });
 }
-
-// events (TO DO maybe just bind events to redraw ) 
-function resize() {
-	redraw(dataBlob); 
-}
-// update x column option
-function updateColumnX() {
-	redraw(dataBlob);
-}
-// update y column option
-function updateColumnY() {
-	redraw(dataBlob);
-}
-
 };
-

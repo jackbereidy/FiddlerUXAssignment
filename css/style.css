@@ -83,6 +83,7 @@ body {
 .options .option-item {
 	padding-left: 15px;
 	padding-right: 15px;
+	margin-bottom: 15px;
 }
 .options .option-item .option-label {
 	font-weight: 700;
@@ -91,6 +92,14 @@ body {
 	display: inline-block;
 	vertical-align: middle;
 }
+.options .option-item .option-label.limit {
+	padding-right: 5px;
+}
+.options .option-item .option-label.slider-label {
+	font-weight: 400;
+	min-width: 33px;
+}
+
 
 .x-label {
 	color: rgb(72, 84, 101);
