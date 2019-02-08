@@ -46,20 +46,27 @@ body {
 .card-item {
 
 }
-.card-item.title {
+.card-item.header {
 	margin-bottom: 10px;
+	margin-left: 20px;
 }
 .card-title {
 	font-weight: 700;
 	margin-top: 0;
 	color: rgb(50, 60, 71);
 	font-size: 25px;
-	line-height: 50px;
+	line-height: 40px;
 }
 .card-subtitle {
 	font-weight: 400;
 	font-size: 20px;
 	margin-left: 9px;
+	color: rgb(72, 84, 101);
+}
+.plot-label {
+	display: block;
+	font-weight: 400;
+	font-size: 17px;
 	color: rgb(72, 84, 101);
 }
 
@@ -81,8 +88,38 @@ body {
 	font-weight: 700;
 	color: rgb(50, 60, 71);
 	padding-right: 15px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
+.x-label {
+	color: rgb(72, 84, 101);
+}
+
+.slider {
+    width: 100px;
+    padding: 0;
+    margin: 0;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+@media (max-width:650px) {
+	.options { justify-content: flex-start; }
+	.option-item { margin-top: 15px; }
+	.card { margin-top: 0px; }
+}
+
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+/* not used */
 /* button */
 .button {
   background-color: rgb(14, 100, 210); /* Green */
@@ -102,19 +139,4 @@ body {
 }
 .button:hover {
 	background-color: rgb(7, 74, 161);
-}
-
-@media (max-width:650px) {
-	.options { justify-content: flex-start; }
-	.option-item { margin-top: 15px; }
-	.card { margin-top: 0px; }
-}
-
-.noselect {
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }

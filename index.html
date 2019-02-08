@@ -18,8 +18,10 @@
 <body>
 	<div class="container">
 		<div class="card">
-			<div class="card-item title">
-				<span class="card-title noselect">Analytics</span> <span class="card-subtitle noselect"> test.csv </span>
+			<div class="card-item header">
+				<span class="card-title noselect">Analytics</span> 
+				<span class="card-subtitle noselect"> test.csv </span> 
+				<span id="plotLabel" class="plot-label noselect"></span>
 			</div>
 			<div class="card-item" id="svg-container"></div>
 			<div class="card-item">
@@ -36,24 +38,16 @@
 						</span>
 						<select id='select-col-y'></select>
 					</div>
-
 					<div class="option-item">
 						<span class="option-label noselect">
 							Limit
 						</span>
-						<select>
-							<option>Default select</option>
-						</select>
-					</div>
-					<div class="option-item button-item">
-						<a href="#" class="button">Plot</a>
+						<input type="range" class="slider" id="limit-slider">
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- scatter plot -->
 	<script src="js/scatterplot.js"></script>
 </body>
 </html>
