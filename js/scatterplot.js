@@ -53,9 +53,9 @@ let yAxis = plotGroup.append('g')
 // label updates with changes to x and y axes
 let plotLabel = d3.select('#plotLabel');
 // x and y axis labels
-let xLabelGroup = plotGroup.append('g');
+let xLabelGroup = svg.append('g');
 let xLabel = xLabelGroup.append('text');
-let yLabelGroup = plotGroup.append('g');
+let yLabelGroup = svg.append('g');
 let yLabel = yLabelGroup.append('text').attr('transform', 'rotate(-90)');
 // label updates with changes to limit slider
 let limitLabel = d3.select('#limitLabel');
@@ -156,20 +156,18 @@ function redraw() {
 	yAxis.call(d3.axisLeft(getYScale()));
 	// update plot label
 	plotLabel.text(selectColX.property('value') + ' vs ' + selectColY.property('value'));
-
-
 	// set text and location of x label
-
-	// xLabelGroup.attr('transform', `translate(${xAxis},${0})`);
-	// xLabel.text(selectColX.property('value'));
-
-	    // getSvgTargetWidth() - 80
-
-	let yLabelYPosition = getSvgTargetHeight()/2 - yLabel.node().getBBox().height/2;
-	yLabelGroup.attr('x', 100)
-	    .attr('y', yLabelYPosition);
+	xLabel.text(selectColX.property('value'));
+	let plotGroupBB = plotGroup.node().getBBox();
+	let xLabelX = plotGroupBB.width/2 - xLabel.node().getBBox().width/2;
+	let xLabelY = plotGroupBB.height + 30;
+	xLabelGroup.attr('transform', `translate(${xLabelX},${xLabelY})`);
+	// set text and location of y label
 	yLabel.text(selectColY.property('value'));
-
+	let yLabelX = 10;
+	let yLabelY = plotGroupBB.height/2 + yLabel.node().getBBox().width/2;
+	yLabelGroup.attr('transform', `translate(${yLabelX},${yLabelY})`);
+	// final step, draw points
 	drawPoints(dataBlob);
 }
 // draw points in plot
