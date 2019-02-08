@@ -1,7 +1,8 @@
 window.onload = function(){
 
 function getSvgTargetHeight() { 
-	if (window.innerWidth <= 650 ) return 350;
+	// conditionally limit height of svg if we're on a small screen
+	if (window.innerWidth <= 650 ) return 300;
 	return window.innerHeight * 0.7;
 }
 function getSvgTargetWidth()  { return svg.node().getBoundingClientRect().width; }
@@ -107,11 +108,13 @@ function initializeOptions() {
 		selectColX.append('option')
 			.attr('value', opt)
 			.attr('label', opt)
-			.attr('id', 'x-opt-' + opt);
+			.attr('id', 'x-opt-' + opt)
+			.html(opt);
 		d3.select('#select-col-y').append('option')
 			.attr('value', opt)
 			.attr('label', opt)
-			.attr('id', 'y-opt-' + opt);
+			.attr('id', 'y-opt-' + opt)
+			.html(opt);
 	}
 	// default to something interesting
 	d3.select('#x-opt-open_acc')
