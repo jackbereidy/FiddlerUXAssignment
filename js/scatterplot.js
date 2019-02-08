@@ -1,12 +1,16 @@
 window.onload = function(){
 
-function getSvgTargetHeight() { return window.innerHeight * 0.7;}
+function getSvgTargetHeight() { 
+	if (window.innerWidth <= 650 ) return 350;
+	return window.innerHeight * 0.7;
+}
 function getSvgTargetWidth()  { return svg.node().getBoundingClientRect().width; }
 function getSvgMarginOffset() { return 40; }
 // create svg
 let cardBody = d3.select('#svg-container');
 let svg = cardBody.append('svg')
 	.attr('id', 'svg')
+	.attr('class', 'svg')
 	.attr('width', '100%')
 	.attr('height', getSvgTargetHeight() + 'px');
 
@@ -109,10 +113,10 @@ function initializeOptions() {
 			.attr('label', opt)
 			.attr('id', 'y-opt-' + opt);
 	}
-	// arbitrary default columns 1 and 2
-	d3.select('#x-opt-'+options[3])
+	// default to something interesting
+	d3.select('#x-opt-open_acc')
 		.attr('selected', 'selected');
-	d3.select('#y-opt-'+options[4])
+	d3.select('#y-opt-total_acc')
 		.attr('selected', 'selected');
 }
 
